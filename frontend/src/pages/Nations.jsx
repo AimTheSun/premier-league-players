@@ -49,7 +49,7 @@ const Nations = () => {
                     {/* Nation Name */}
                     <p className="text-white text-lg font-semibold">{nation.name}</p>
                     {/* LINK TO NATION DETAILS */}
-                    <Link className="font-semibold inline-block mt-2 px-4 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black rounded-md transition duration-300" to={encodeURIComponent(nation.search)}>View
+                    <Link className="font-semibold inline-block mt-2 px-4 py-2 border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black rounded-md transition duration-300"   to={`/nation/${encodeURIComponent(nation.code)}`}>View
                     </Link>
                     </div>
                 </div>

@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController //  marks the class as a spring MVC controller where every method returns a domain object instead of a view
 @RequestMapping(path = "api/v1/player")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173", "https://premierzone.vercel.app"})
 public class PlayerController {
     private final PlayerService playerService;
 
@@ -25,6 +26,11 @@ public class PlayerController {
             @RequestParam(required = false) String nation){
         // method is going to return a different player list based on the presence of these query parameters
         // if not param are provided will return all the players
+           // If nation is not null, handle its case and ensure it's not null
+    if (nation != null) {
+        nation = nation.toLowerCase();  // Convert to lowercase here
+    }
+    
         if(team != null && position != null){
             return  playerService.getPlayersByTeamAndPosition(team, position);
         }

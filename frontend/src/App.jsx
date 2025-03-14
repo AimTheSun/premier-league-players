@@ -5,6 +5,8 @@ import Teams from "./pages/Teams"
 import Nations from "./pages/Nations"
 import Position from "./pages/Position"
 import Search from "./pages/Search"
+import DataHandling from "./pages/DataHandling"
+import NationPlayers from "./pages/NationPlayers"
 
 
 
@@ -20,6 +22,9 @@ function App() {
         <Route path="nation" element={<Nations />} />
         <Route path="position" element={<Position />} />
         <Route path="search" element={<Search />} />
+        <Route path="/data" element={<DataHandling />} />
+        <Route path="/nation/:code" element={<NationPlayers />} />
+
     </Route>
       </Routes>
     </>
