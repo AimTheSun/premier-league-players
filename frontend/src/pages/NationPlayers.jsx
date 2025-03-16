@@ -11,7 +11,11 @@ const NationPlayers = () => {
   useEffect(() => {
     if (code) {
       axios
-        .get(`${import.meta.env.VITE_API_URL}/api/v1/player?nation=${encodeURIComponent(code)}`)
+        .get(
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/v1/player?nation=${encodeURIComponent(code)}`
+        )
         .then((response) => {
           setPlayerData(response.data);
           setLoading(false);
@@ -26,11 +30,17 @@ const NationPlayers = () => {
   }, [code]);
 
   if (loading) {
-    return <p className="text-center text-gray-500 text-lg mt-10">Loading...</p>;
+    return (
+      <p className="text-center text-gray-500 text-lg mt-10">Loading...</p>
+    );
   }
 
   if (error) {
-    return <p className="text-center text-red-500 text-lg mt-10">Error: {error.message}</p>;
+    return (
+      <p className="text-center text-red-500 text-lg mt-10">
+        Error: {error.message}
+      </p>
+    );
   }
 
   return (
@@ -56,14 +66,22 @@ const NationPlayers = () => {
               playerData.map((player, index) => (
                 <tr
                   key={index}
-                  className={`border-b border-gray-300 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                  className={`border-b border-gray-300 ${
+                    index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                  }`}
                 >
-                  <td className="py-3 px-4">{player.name}</td>
-                  <td className="py-3 px-4">{player.pos}</td>
-                  <td className="py-3 px-4">{player.age}</td>
-                  <td className="py-3 px-4">{player.matchesPlayed}</td>
-                  <td className="py-3 px-4">{player.goals}</td>
-                  <td className="py-3 px-4">{player.assists}</td>
+                  {[
+                    player.name,
+                    player.pos,
+                    player.age,
+                    player.matchesPlayed,
+                    player.goals,
+                    player.assists,
+                  ].map((value, i) => (
+                    <td key={i} className="py-3 px-4">
+                      {value}
+                    </td>
+                  ))}
                 </tr>
               ))
             ) : (

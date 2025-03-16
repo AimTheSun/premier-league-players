@@ -2,13 +2,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 
+// Main component for handling and displaying player data
 const DataHandling = () => {
+  // Retrieves search parameters from the URL
   const [searchParams] = useSearchParams();
-  const teamValue = searchParams.get("team"); // Get 'team' from URL
+  // Extracts the 'team' parameter value from URL
+  const teamValue = searchParams.get("team"); 
+  // State to track loading status of data fetch
   const [loading, setLoading] = useState(true);
+  // State to store any errors during data fetch
   const [error, setError] = useState(null);
+  // State to store fetched player data
   const [playerData, setPlayerData] = useState([]);
 
+  // Effect hook to fetch player data when teamValue changes
   useEffect(() => {
     if (teamValue) {
       axios
@@ -26,14 +33,17 @@ const DataHandling = () => {
     }
   }, [teamValue]);
 
+
   if (loading) {
     return <p className="text-center text-gray-500 text-lg mt-10">Loading...</p>;
   }
+
 
   if (error) {
     return <p className="text-center text-red-500 text-lg mt-10">Error: {error.message}</p>;
   }
 
+ // player data table
   return (
     <div className="container mx-auto px-4 py-10">
       <div className="overflow-x-auto">
