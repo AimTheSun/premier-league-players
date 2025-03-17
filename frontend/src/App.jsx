@@ -7,6 +7,7 @@ import Position from "./pages/Position"
 import Search from "./pages/Search"
 import DataHandling from "./pages/DataHandling"
 import NationPlayers from "./pages/NationPlayers"
+import PositionPlayers from "./pages/PositionPlayers"
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="search" element={<Search />} />
         <Route path="/data" element={<DataHandling />} />
         <Route path="/nation/:code" element={<NationPlayers />} />
+        <Route path="/position/:position" element={<PositionPlayers />} /> 
 
     </Route>
       </Routes>

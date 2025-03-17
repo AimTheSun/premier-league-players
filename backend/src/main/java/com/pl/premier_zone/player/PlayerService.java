@@ -8,14 +8,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component // marks a javaclass as a component. this means that spring will create an
-           // instance of this class and then manage its life cycle
+@Component
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
 
-    @Autowired // autowired to inject this player repository Bean into the service which will
-               // enable it to interact with the database
+    @Autowired
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
@@ -32,13 +30,15 @@ public class PlayerService {
 
     public List<Player> getPlayersByName(String searchText) {
         return playerRepository.findAll().stream()
-                .filter(player -> player.getName().toLowerCase().contains(searchText.toLowerCase()))
+                .filter(player -> player.getName() != null && 
+                        player.getName().toLowerCase().contains(searchText.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     public List<Player> getPlayersByPos(String searchText) {
         return playerRepository.findAll().stream()
-                .filter(player -> player.getPos().toLowerCase().contains(searchText.toLowerCase()))
+                .filter(player -> player.getPos() != null && // Add null check
+                        player.getPos().toLowerCase().contains(searchText.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
@@ -47,12 +47,13 @@ public class PlayerService {
                 .filter(player -> player.getNation() != null &&
                         player.getNation().toLowerCase().contains(searchText.toLowerCase()))
                 .collect(Collectors.toList());
-
     }
 
     public List<Player> getPlayersByTeamAndPosition(String team, String position) {
         return playerRepository.findAll().stream()
-                .filter(player -> team.equals(player.getTeam()) && position.equals(player.getPos()))
+                .filter(player -> team.equals(player.getTeam()) && 
+                        player.getPos() != null && // Add null check
+                        position.equals(player.getPos()))
                 .collect(Collectors.toList());
     }
 
@@ -72,9 +73,7 @@ public class PlayerService {
             playerToUpdate.setNation(updatedPlayer.getNation());
 
             playerRepository.save(playerToUpdate);
-
             return playerToUpdate;
-
         }
         return null;
     }
