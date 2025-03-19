@@ -7,7 +7,7 @@ const DataHandling = () => {
   // Retrieves search parameters from the URL
   const [searchParams] = useSearchParams();
   // Extracts the 'team' parameter value from URL
-  const teamValue = searchParams.get("team"); 
+  const teamValue = searchParams.get("team");
   // State to track loading status of data fetch
   const [loading, setLoading] = useState(true);
   // State to store any errors during data fetch
@@ -19,7 +19,11 @@ const DataHandling = () => {
   useEffect(() => {
     if (teamValue) {
       axios
-        .get(`${import.meta.env.VITE_API_URL}/api/v1/player?team=${encodeURIComponent(teamValue)}`)
+        .get(
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/v1/player?team=${encodeURIComponent(teamValue)}`
+        )
         .then((response) => {
           setPlayerData(response.data);
           setLoading(false);
@@ -33,17 +37,21 @@ const DataHandling = () => {
     }
   }, [teamValue]);
 
-
   if (loading) {
-    return <p className="text-center text-gray-500 text-lg mt-10">Loading...</p>;
+    return (
+      <p className="text-center text-gray-500 text-lg mt-10">Loading...</p>
+    );
   }
-
 
   if (error) {
-    return <p className="text-center text-red-500 text-lg mt-10">Error: {error.message}</p>;
+    return (
+      <p className="text-center text-red-500 text-lg mt-10">
+        Error: {error.message}
+      </p>
+    );
   }
 
- // player data table
+  // player data table
   return (
     <div className="container mx-auto px-4 py-10">
       <div className="overflow-x-auto">
@@ -70,7 +78,9 @@ const DataHandling = () => {
             {playerData.map((player, index) => (
               <tr
                 key={index}
-                className={`border-b border-gray-300 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                className={`border-b border-gray-300 ${
+                  index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                }`}
               >
                 <td className="py-3 px-4">{player.name}</td>
                 <td className="py-3 px-4">{player.pos}</td>
